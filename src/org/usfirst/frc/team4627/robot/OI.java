@@ -42,11 +42,11 @@ public class OI {
 	}
 	
 	public double getOperatorRawAxis(int axis) {
-		return Utilities.constrain(this.operatorController.getRawAxis(axis), -RobotMap.CONTROLLER_SAFEZONE, RobotMap.CONTROLLER_SAFEZONE);
+		return Utilities.notWithinValue(this.operatorController.getRawAxis(axis), -RobotMap.CONTROLLER_SAFEZONE, RobotMap.CONTROLLER_SAFEZONE);
 	}
 	
 	public double getDriverRawAxis(int axis) {
-		return Utilities.constrain(this.driverController.getRawAxis(axis), -RobotMap.CONTROLLER_SAFEZONE, RobotMap.CONTROLLER_SAFEZONE);
+		return Utilities.notWithinValue(this.driverController.getRawAxis(axis), -RobotMap.CONTROLLER_SAFEZONE, RobotMap.CONTROLLER_SAFEZONE);
 	}
 
 	public OI () {

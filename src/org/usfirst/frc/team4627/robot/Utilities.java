@@ -33,6 +33,30 @@ public class Utilities {
 		return value;
 	}
 	
+	public static double withinValue(double value, double min, double max) {
+		if(value < max && value > min) {
+			return value;
+		}else {
+			return 0;
+		}
+	}
+	
+	public static double notWithinValue(double value, double min, double max) {
+		if(value < max && value > min) {
+			return 0;
+		}else {
+			return value;
+		}
+	}
+	
+	public static boolean within(double value, double min, double max) {
+		return (value < max && value > min);
+	}
+	
+	public static boolean notWithin(double value, double min, double max) {
+		return (value > max || value < min);
+	}
+	
 	public static double scale(double value, double scalar) {
 		return value * scalar;
 	}

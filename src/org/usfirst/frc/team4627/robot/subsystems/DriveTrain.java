@@ -9,6 +9,7 @@ package org.usfirst.frc.team4627.robot.subsystems;
 
 import org.usfirst.frc.team4627.robot.RobotMap;
 import org.usfirst.frc.team4627.robot.Utilities;
+import org.usfirst.frc.team4627.robot.commands.DriverControls;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -36,7 +37,7 @@ public class DriveTrain extends Subsystem {
 	
 	
 	public void initDefaultCommand() {
-
+		super.setDefaultCommand(new DriverControls());
 	}
 	
 	public void setLeftMotor(double motorSetting) {

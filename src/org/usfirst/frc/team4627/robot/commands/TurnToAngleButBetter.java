@@ -40,7 +40,7 @@ public class TurnToAngleButBetter extends Command {
 		Robot.driveTrain.setRightMotor(0);
 
 		Sensors.gyro.zeroYaw();
-    	while(Sensors.gyro.isCalibrating()) {} // give the gyro a second to zero
+    	while(Sensors.gyro.getAngle() >= 0.02 || Sensors.gyro.getAngle() <= -0.02) {} // give the gyro a second to zero
 		
 	}
 
@@ -57,7 +57,7 @@ public class TurnToAngleButBetter extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Utilities.within(Sensors.gyro.getAngle(), -RobotMap.GYRO_GAY, RobotMap.GYRO_GAY);
 	}
 
 	// Called once after isFinished returns true

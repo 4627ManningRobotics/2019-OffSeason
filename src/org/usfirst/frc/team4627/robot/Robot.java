@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4627.robot.commands.TurnToAngleButBetter;
 import org.usfirst.frc.team4627.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4627.robot.subsystems.Sensors;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +25,7 @@ import org.usfirst.frc.team4627.robot.subsystems.DriveTrain;
  */
 public class Robot extends TimedRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final Sensors sensors = new Sensors();
 	public static OI oi;
 
 	Command m_autonomousCommand;

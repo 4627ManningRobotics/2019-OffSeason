@@ -53,10 +53,11 @@ public class RobotMap {
 	
 	//rates and scalars
 	public static final double RAMP_RATE = 0.4;
-	public static final double ANGLE_SPEED_SCALAR = 0.01;
+	public static final double ANGLE_SPEED_SCALAR = 0.1;
 	public static final double DRIVER_MAX_SPEED = 1.0;
 	public static double TURNING_RATE = 0.7;
 	
 	//constrainors
 	public static final double CONTROLLER_SAFEZONE = 0.1;
+	public static final double GYRO_GAY = 3; //this is Sara's contribution
 }
