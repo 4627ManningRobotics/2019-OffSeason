@@ -23,4 +23,40 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+
+	public static final int DRIVER_CONTROLLER = 0;
+	public static final int OPERATOR_CONTROLLER = 1;
+
+	public static final int BUTTON_A = 1;
+	public static final int BUTTON_B = 2;
+	public static final int BUTTON_X = 3;
+	public static final int BUTTON_Y = 4;
+	public static final int LEFT_BUMPER = 5;
+	public static final int RIGHT_BUMPER = 6;
+	public static final int BACK_BUTTON = 7;
+	public static final int START_BUTTON = 8;
+	public static final int LEFT_STICK_BUTTON = 9;
+	public static final int RIGHT_STICK_BUTTON = 10;
+	
+	public static final int LEFT_STICK_X = 0;
+	public static final int LEFT_STICK_Y = 1;
+	public static final int RIGHT_STICK_Y = 5;
+	public static final int RIGHT_STICK_X = 4;
+	
+	public static final int LEFT_TRIGGER = 2;
+	public static final int RIGHT_TRIGGER = 3;
+	
+	public static final int LEFT_MOTOR_1 = 5;
+	public static final int LEFT_MOTOR_2 = 6;
+	public static final int RIGHT_MOTOR_1 = 3;
+	public static final int RIGHT_MOTOR_2 = 4;
+	
+	//rates and scalars
+	public static final double RAMP_RATE = 0.4;
+	public static final double ANGLE_SPEED_SCALAR = 0.01;
+	public static final double DRIVER_MAX_SPEED = 1.0;
+	public static double TURNING_RATE = 0.7;
+	
+	//constrainors
+	public static final double CONTROLLER_SAFEZONE = 0.1;
 }
