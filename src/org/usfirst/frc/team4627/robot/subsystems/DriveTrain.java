@@ -28,10 +28,22 @@ public class DriveTrain extends Subsystem {
 	private final TalonSRX rightMotor2 = new TalonSRX(RobotMap.RIGHT_MOTOR_2);
 	
 	public DriveTrain() {
-		this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); // configure the time it takes for the motors to reach max speed
+		// configure the time it takes for the motors to reach max speed
+		this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
 		this.leftMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
 		this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
 		this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
+		
+		//current limiting
+		this.leftMotor1.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.leftMotor2.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor1.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor2.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		
+		this.leftMotor1.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.leftMotor2.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor1.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor2.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
 		
 	}
 	

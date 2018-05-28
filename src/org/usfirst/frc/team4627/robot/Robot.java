@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		this.oi = new OI();
+		Robot.oi = new OI();
 		this.m_chooser.addDefault("turn right", new TurnToAngleButBetter(45, 1));
 		this.m_chooser.addObject("turn left", new TurnToAngleButBetter(-45, 1));
 		SmartDashboard.putData("Auto mode", m_chooser);

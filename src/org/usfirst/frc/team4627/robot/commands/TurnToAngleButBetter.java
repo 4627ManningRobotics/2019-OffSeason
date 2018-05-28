@@ -47,7 +47,7 @@ public class TurnToAngleButBetter extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double leftSpeed = Utilities.constrain(Utilities.scale(this.angle, RobotMap.ANGLE_SPEED_SCALAR), this.max); 
+		double leftSpeed = Utilities.constrain(Utilities.scale(this.angle, RobotMap.ANGLE_SPEED_SCALAR), -this.max, this.max); 
 		double rightSpeed = -leftSpeed;
 		
 		Robot.driveTrain.setRightMotor(rightSpeed);

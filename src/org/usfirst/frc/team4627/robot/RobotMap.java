@@ -60,4 +60,13 @@ public class RobotMap {
 	//constrainors
 	public static final double CONTROLLER_SAFEZONE = 0.1;
 	public static final double GYRO_GAY = 3; //this is Sara's contribution
+	public static final int DRIVE_CURRENT_LIMIT = 30; //amps
+	public static final int DRIVE_CURRENT_TIMEOUT = 10; //ms
+	
+	//PID values
+	public static final double TURN_P = 0;
+	public static final double TURN_I = 0;
+	public static final double TURN_D = 0;
+	public static final double TURN_TOLLERANCE = 2;
+	
 }
