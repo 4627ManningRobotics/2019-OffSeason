@@ -7,6 +7,7 @@ import org.usfirst.frc.team4627.robot.RobotMap;
 import org.usfirst.frc.team4627.robot.subsystems.Sensors;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 
 /**
  *
@@ -15,9 +16,17 @@ public class PIDTurnToAngle extends Command {
 
 	private PIDController PID;
 	
+    private class PIDOut implements PIDOutput{
+    	public void pidWrite(double output){
+    		Robot.driveTrain.setRightMotor(output);
+    		Robot.driveTrain.setLeftMotor(-output);
+    	}
+    }
+    
     public PIDTurnToAngle(double angle) {
+    	
         super.requires(Robot.driveTrain);
-    	this.PID = new PIDController(RobotMap.TURN_P, RobotMap.TURN_I, RobotMap.TURN_D, Sensors.gyro, null);
+    	this.PID = new PIDController(RobotMap.TURN_P, RobotMap.TURN_I, RobotMap.TURN_D, Sensors.gyro, new PIDOut());
     	this.PID.setOutputRange(-1, 1);
     	this.PID.setAbsoluteTolerance(RobotMap.TURN_TOLLERANCE);
     	this.PID.setSetpoint(angle);
@@ -30,8 +39,7 @@ public class PIDTurnToAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.setRightMotor(this.PID.get());
-    	Robot.driveTrain.setLeftMotor(-this.PID.get());
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -49,4 +57,5 @@ public class PIDTurnToAngle extends Command {
     protected void interrupted() {
     	this.end();
     }
+    
 }
