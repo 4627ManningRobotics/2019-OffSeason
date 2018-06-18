@@ -11,6 +11,7 @@ import org.usfirst.frc.team4627.robot.RobotMap;
 import org.usfirst.frc.team4627.robot.Utilities;
 import org.usfirst.frc.team4627.robot.commands.DriverControls;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -29,27 +30,28 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		// configure the time it takes for the motors to reach max speed
-		this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
-		this.leftMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
-		this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
-		this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
+		this.leftMotor1.configOpenloopRamp(0, 0); 
+		this.leftMotor2.configOpenloopRamp(0, 0); 
+		this.rightMotor1.configOpenloopRamp(0, 0); 
+		this.rightMotor2.configOpenloopRamp(0, 0); 
 		
 		//current limiting
-		
-		this.leftMotor1.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.leftMotor2.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor1.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor2.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		
-		this.leftMotor1.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.leftMotor2.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor1.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor2.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		/*
+		this.leftMotor1.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.leftMotor2.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor1.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor2.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
+
+		this.leftMotor1.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.leftMotor2.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor1.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
+		this.rightMotor2.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
 		
 		this.leftMotor1.enableCurrentLimit(true);
 		this.leftMotor2.enableCurrentLimit(true);
 		this.rightMotor1.enableCurrentLimit(true);
 		this.rightMotor2.enableCurrentLimit(true);
+		*/
 	}
 	
 	
@@ -59,13 +61,27 @@ public class DriveTrain extends Subsystem {
 	
 	public void setLeftMotor(double motorSetting) {
 		motorSetting = Utilities.scale(motorSetting, RobotMap.DRIVER_MAX_SPEED);
-    	leftMotor1.set(leftMotor1.getControlMode(), motorSetting);
-    	leftMotor2.set(leftMotor2.getControlMode(), motorSetting);
+    	this.leftMotor1.set(ControlMode.PercentOutput, motorSetting);
+    	this.leftMotor2.set(ControlMode.PercentOutput, motorSetting);
+    	
+    	if(this.leftMotor1.getOutputCurrent() > RobotMap.DRIVE_CURRENT_LIMIT) {
+    		this.leftMotor1.set(ControlMode.Current, RobotMap.DRIVE_CURRENT_LIMIT);
+    	}
+    	if(this.leftMotor2.getOutputCurrent() > RobotMap.DRIVE_CURRENT_LIMIT) {
+    		this.leftMotor2.set(ControlMode.Current, RobotMap.DRIVE_CURRENT_LIMIT);
+    	}
     }
     
     public void setRightMotor(double motorSetting) {
 		motorSetting = Utilities.scale(motorSetting, RobotMap.DRIVER_MAX_SPEED);
-    	rightMotor1.set(rightMotor1.getControlMode(), -motorSetting); //reverse setting 
-    	rightMotor2.set(rightMotor2.getControlMode(), -motorSetting);
+    	this.rightMotor1.set(ControlMode.PercentOutput, -motorSetting); //reverse setting 
+    	this.rightMotor2.set(ControlMode.PercentOutput, -motorSetting);
+
+    	if(this.rightMotor1.getOutputCurrent() > RobotMap.DRIVE_CURRENT_LIMIT) {
+			this.rightMotor1.set(ControlMode.Current, RobotMap.DRIVE_CURRENT_LIMIT);
+		}
+		if(this.rightMotor2.getOutputCurrent() > RobotMap.DRIVE_CURRENT_LIMIT) {
+			this.rightMotor2.set(ControlMode.Current, RobotMap.DRIVE_CURRENT_LIMIT);
+		}
     }
 }

@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4627.robot;
 
+import fullyconnectednetwork.NN;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -65,13 +67,16 @@ public class RobotMap {
 	
 	//constrainors
 	public static final double CONTROLLER_SAFEZONE = 0.1;
-	public static final double GYRO_GAY = 2; //this is Sara's contribution
-	public static final int DRIVE_CURRENT_LIMIT = 30; //amps
+	public static final double GYRO_GAY = 3; //this is Sara's contribution
+	public static final int DRIVE_CURRENT_LIMIT = 27; //amps
 	public static final int DRIVE_CURRENT_TIMEOUT = 10; //ms
 	
 	//PID values
 	public static final double TURN_P = 0.01;
 	public static final double TURN_I = 0.0002;
 	public static final double TURN_D = 0;
+	
+	//Neural Networks
+	//public static final NN TurningNetwork = new NN("/home/lvuser/Saves/turnNetSaveTest.txt", "/home/lvuser/Saves/turnSetSaveTest.txt");
 	
 }
