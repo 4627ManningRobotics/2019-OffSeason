@@ -60,5 +60,12 @@ public class Utilities {
 	public static double scale(double value, double scalar) {
 		return value * scalar;
 	}
-	
+
+	public static double AddSub(double valueA, double valueB) { // add B to A if A is positive, subtract B from A if a is negative
+		if(valueA >= 0) {
+			return valueA + valueB;
+		}else{
+			return valueA - valueB;
+		}
+	}
 }

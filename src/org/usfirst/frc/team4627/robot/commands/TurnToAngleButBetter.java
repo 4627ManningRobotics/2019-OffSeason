@@ -18,7 +18,8 @@ import org.usfirst.frc.team4627.robot.subsystems.Sensors;
  */
 public class TurnToAngleButBetter extends Command {
 	
-	private double angle, max;
+	private double angle, max, startTime;
+	private boolean isfinished;
 	
 	/*
 	 * 
@@ -41,23 +42,37 @@ public class TurnToAngleButBetter extends Command {
 
 		Sensors.gyro.zeroYaw();
     	while(Sensors.gyro.getAngle() >= 0.02 || Sensors.gyro.getAngle() <= -0.02) {} // give the gyro a second to zero
-		
+		this.isfinished = false;
+		this.startTime = System.currentTimeMillis();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double leftSpeed = Utilities.constrain(Utilities.scale(this.angle, RobotMap.ANGLE_SPEED_SCALAR), -this.max, this.max); 
+		double angle_distance = this.angle - Sensors.gyro.getAngle();
+		
+		//scale the angle-distance, offset the value, and constrain the value 
+		double leftSpeed = Utilities.constrain(Utilities.AddSub(Utilities.scale(
+				angle_distance, RobotMap.ANGLE_SPEED_SCALAR), RobotMap.TURN_BASE_RATE), -this.max, this.max); 
 		double rightSpeed = -leftSpeed;
 		
 		Robot.driveTrain.setRightMotor(rightSpeed);
 		Robot.driveTrain.setLeftMotor(leftSpeed);
+		
+		if(Utilities.within(Sensors.gyro.getAngle(), this.angle - RobotMap.GYRO_GAY, this.angle + RobotMap.GYRO_GAY)) {
+			if(System.currentTimeMillis() >= this.startTime + RobotMap.TURN_WAIT) {
+				this.isfinished = true;
+			}else {
+				this.startTime = System.currentTimeMillis();
+			}
+		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Utilities.within(Sensors.gyro.getAngle(), -RobotMap.GYRO_GAY, RobotMap.GYRO_GAY);
+		return isfinished;
 	}
 
 	// Called once after isFinished returns true

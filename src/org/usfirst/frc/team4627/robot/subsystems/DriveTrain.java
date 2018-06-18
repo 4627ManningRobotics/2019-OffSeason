@@ -35,6 +35,7 @@ public class DriveTrain extends Subsystem {
 		this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
 		
 		//current limiting
+		
 		this.leftMotor1.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
 		this.leftMotor2.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
 		this.rightMotor1.configContinuousCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
@@ -45,6 +46,10 @@ public class DriveTrain extends Subsystem {
 		this.rightMotor1.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
 		this.rightMotor2.configPeakCurrentLimit(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
 		
+		this.leftMotor1.enableCurrentLimit(true);
+		this.leftMotor2.enableCurrentLimit(true);
+		this.rightMotor1.enableCurrentLimit(true);
+		this.rightMotor2.enableCurrentLimit(true);
 	}
 	
 	

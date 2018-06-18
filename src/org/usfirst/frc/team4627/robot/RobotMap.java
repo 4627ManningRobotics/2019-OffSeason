@@ -53,20 +53,25 @@ public class RobotMap {
 	
 	//rates and scalars
 	public static final double RAMP_RATE = 0.4;
-	public static final double ANGLE_SPEED_SCALAR = 0.1;
+	public static final double ANGLE_SPEED_SCALAR = 0.01;
 	public static final double DRIVER_MAX_SPEED = 1.0;
 	public static double TURNING_RATE = 0.7;
+
+	//offsets
+	public static final double TURN_BASE_RATE = 0.1;
+	
+	//times
+	public static final double TURN_WAIT = 250; // 1/4 seconds 
 	
 	//constrainors
 	public static final double CONTROLLER_SAFEZONE = 0.1;
-	public static final double GYRO_GAY = 3; //this is Sara's contribution
+	public static final double GYRO_GAY = 2; //this is Sara's contribution
 	public static final int DRIVE_CURRENT_LIMIT = 30; //amps
 	public static final int DRIVE_CURRENT_TIMEOUT = 10; //ms
 	
 	//PID values
-	public static final double TURN_P = 0;
-	public static final double TURN_I = 0;
+	public static final double TURN_P = 0.01;
+	public static final double TURN_I = 0.0002;
 	public static final double TURN_D = 0;
-	public static final double TURN_TOLLERANCE = 2;
 	
 }
