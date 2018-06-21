@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4627.robot.commands.NNTraining;
 import org.usfirst.frc.team4627.robot.commands.PIDTurnToAngle;
 import org.usfirst.frc.team4627.robot.commands.TurnAndAddData;
 import org.usfirst.frc.team4627.robot.commands.TurnToAngleButBetter;
@@ -43,7 +44,8 @@ public class Robot extends TimedRobot {
 		Robot.oi = new OI();
 		this.m_chooser.addDefault("turn right", new PIDTurnToAngle(45));
 		this.m_chooser.addObject("turn left", new PIDTurnToAngle(-45));
-		this.m_chooser.addObject("Net Training", new TurnAndAddData());
+		this.m_chooser.addObject("Net Data", new TurnAndAddData());
+		this.m_chooser.addObject("Net Training", new NNTraining());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

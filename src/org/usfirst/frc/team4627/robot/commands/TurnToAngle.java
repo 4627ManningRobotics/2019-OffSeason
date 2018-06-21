@@ -44,10 +44,10 @@ public class TurnToAngle extends Command {
 	    	double angle = Sensors.gyro.getAngle();
 	    		double maxAngle = this.angleWanted + RobotMap.GYRO_GAY;
 	    		double minAngle = this.angleWanted - RobotMap.GYRO_GAY;
-	    		if(angle < minAngle) {
+	    		if(angle < minAngle && this.angleWanted > 0) {
 	    			Robot.driveTrain.setLeftMotor(this.leftSpeed);
 	    			Robot.driveTrain.setRightMotor(-this.rightSpeed);
-	    		} else if(angle > maxAngle) {
+	    		} else if(angle > maxAngle && this.angleWanted < 0) {
 	   				Robot.driveTrain.setLeftMotor(-this.leftSpeed);
 	   				Robot.driveTrain.setRightMotor(this.rightSpeed);
 	   			} else {

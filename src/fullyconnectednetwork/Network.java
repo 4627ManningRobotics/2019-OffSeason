@@ -15,7 +15,7 @@ import TrainSet.TrainSet;
  */
 public class Network {
 
-    public static final double LEARNING_RATE = 0.3; // this is a well tested number.
+    public static final double LEARNING_RATE = 0.03; // this is a well tested number.
 
     public static final int ZERO_OR_ONE = 0;
     public static final int NEGATIVE_ONE_OR_ONE = 1;
@@ -240,7 +240,7 @@ public class Network {
             for (int b = 0; b < batch_size; b++) {
                 this.train(batch.getInput(b), batch.getOutput(b), LEARNING_RATE);
             }
-            //System.out.println(MSE(batch));
+            System.out.println(MSE(batch));
         }
     }
 
@@ -381,13 +381,15 @@ public class Network {
     }
 
     public static void main(String[] args) {
-        //NN network = new NN();
-        //try {
-        //network.saveNet(new File("").getAbsolutePath() + "\\NeuralNetworks\\saves\\frictionNetSave1.txt");
-        //} catch (Exception e) {
-        //e.printStackTrace();
-        //}
-        //network.trainAndSave(1000000, 20000, new File("").getAbsolutePath() + "\\NeuralNetworks\\saves\\frictionNetSave1.txt");;
+    	Network n = null;
+    	TrainSet s = null;
+    	try {
+			n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSave");
+			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSave");
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	n.train(s, 10000, s.size());
     }
 
     public void saveNetwork(String fileName) throws Exception {

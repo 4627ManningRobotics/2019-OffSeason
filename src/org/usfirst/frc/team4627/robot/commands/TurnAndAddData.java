@@ -38,15 +38,15 @@ public class TurnAndAddData extends Command {
     	
     	this.theNet = new NN(Network.ZERO_TO_ONE, 180.0, new int[] {2,3,1});
 		try {
-			this.theNet.saveNet("/home/lvuser/turnNetSaveTest.txt"); // create the files
-			this.theNet.set.addData(new double[] {0.0, 0.0}, new double[] {0.0});
+			this.theNet.saveNet("/home/lvuser/Saves/turnNetSaveTest.txt"); // create the files
 			System.out.println(this.theNet.set.size());
-			this.theNet.saveSet("/home/lvuser/turnSetSaveTest.txt");
+			this.theNet.saveSet("/home/lvuser/Saves/turnSetSaveTest.txt");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.err.println("you done goofed: " + e);
 		}//create a network save for later
-		
+
+		this.theNet.set.addData(new double[] {0.0, 0.0}, new double[] {0.0});
 		this.c = new TurnToAngle(this.degree * 5, this.speed / 5);
 		this.c.start();
     }
@@ -125,7 +125,7 @@ public class TurnAndAddData extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	this.theNet.saveSet("/home/lvuser/turnSetSaveTest.txt");
+    	this.theNet.saveSet("/home/lvuser/Saves/turnSetSaveTest.txt");
     	Robot.driveTrain.setLeftMotor(0);
     	Robot.driveTrain.setRightMotor(0);
     }

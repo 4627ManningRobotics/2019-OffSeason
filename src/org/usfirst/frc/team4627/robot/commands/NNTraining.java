@@ -1,19 +1,17 @@
 package org.usfirst.frc.team4627.robot.commands;
 
-import org.usfirst.frc.team4627.robot.Robot;
-import org.usfirst.frc.team4627.robot.subsystems.Sensors;
+import org.usfirst.frc.team4627.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ContinuousPrint extends Command {
+public class NNTraining extends Command {
 
-	private long i = 0;
-	
-    public ContinuousPrint() {
-    	super.requires(Robot.sensors);
+    public NNTraining() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -22,9 +20,7 @@ public class ContinuousPrint extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(i % 25 == 0) {
-    		//System.out.println("Gyro: " + Sensors.gyro.getAngle());
-    	}
+    	RobotMap.TurningNetwork.train(1000);
     }
 
     // Make this return true when this Command no longer needs to run execute()

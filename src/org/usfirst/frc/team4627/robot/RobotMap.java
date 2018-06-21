@@ -77,6 +77,6 @@ public class RobotMap {
 	public static final double TURN_D = 0;
 	
 	//Neural Networks
-	//public static final NN TurningNetwork = new NN("/home/lvuser/Saves/turnNetSaveTest.txt", "/home/lvuser/Saves/turnSetSaveTest.txt");
+	public static final NN TurningNetwork = new NN("/home/lvuser/Saves/turnNetSaveTest.txt", "/home/lvuser/Saves/turnSetSaveTest.txt");
 	
 }
