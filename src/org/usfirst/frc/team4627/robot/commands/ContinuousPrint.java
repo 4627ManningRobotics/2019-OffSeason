@@ -23,7 +23,7 @@ public class ContinuousPrint extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(i % 25 == 0) {
-    		//System.out.println("Gyro: " + Sensors.gyro.getAngle());
+    		System.out.println("Gyro: " + Sensors.gyro.getAngle());
     	}
     }
 

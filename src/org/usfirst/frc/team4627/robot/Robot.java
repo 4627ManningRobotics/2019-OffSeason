@@ -43,8 +43,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		Robot.oi = new OI();
-		this.m_chooser.addDefault("turn right", new TurnToAngle(RobotMap.TurningNetwork.calculate(new double[] {45.0, .4})[0], .4));
-		this.m_chooser.addObject("turn left", new PIDTurnToAngle(-45));
+		this.m_chooser.addDefault("turn right", new TurnToAngle(RobotMap.TurningNetwork.calculate(new double[] {45.0, .4})[0] * 180, .4));
+		this.m_chooser.addObject("turn left", new TurnToAngle(-RobotMap.TurningNetwork.calculate(new double[] {45.0, .4})[0] * 180, .4));
 		this.m_chooser.addObject("Net Data", new TurnAndAddData());
 		this.m_chooser.addObject("Net Training", new NNTraining());
 		SmartDashboard.putData("Auto mode", m_chooser);

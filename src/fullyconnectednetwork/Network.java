@@ -16,7 +16,7 @@ import TrainSet.TrainSet;
  */
 public class Network {
 
-    public static final double LEARNING_RATE = 0.00001;
+    public static final double LEARNING_RATE = 0.000015;
 
     public static final int ZERO_OR_ONE = 0;
     public static final int NEGATIVE_ONE_OR_ONE = 1;
