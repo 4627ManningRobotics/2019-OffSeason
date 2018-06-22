@@ -15,7 +15,7 @@ import TrainSet.TrainSet;
  */
 public class Network {
 
-    public static final double LEARNING_RATE = 0.3; // this is a well tested number.
+    public static final double LEARNING_RATE = 0.03; // this is a well tested number.
 
     public static final int ZERO_OR_ONE = 0;
     public static final int NEGATIVE_ONE_OR_ONE = 1;
@@ -166,7 +166,7 @@ public class Network {
                     sum += output[layer - 1][prevNeuron] * weights[layer][neuron][prevNeuron];
                 }
                 output[layer][neuron] = this.sigmoid(sum);
-                output_derivative[layer][neuron] = Math.exp(-sum) / Math.pow(1 + Math.exp(-sum),2);
+                output_derivative[layer][neuron] = (this.multiplier * Math.exp(-sum)) / Math.pow(1 + Math.exp(-sum), 2);
             }
         }
     }
@@ -181,7 +181,7 @@ public class Network {
                     sum += output[layer - 1][prevNeuron] * weights[layer][neuron][prevNeuron];
                 }
                 output[layer][neuron] = this.hyperbolicTangent(sum);
-                output_derivative[layer][neuron] = 1 / Math.pow(Math.cosh(sum), 2);
+                output_derivative[layer][neuron] = this.multiplier * ((Math.exp(2 * sum / this.multiplier) - 1) / (Math.exp(2 * sum / this.multiplier) + 1));
             }
         }
     }
@@ -226,7 +226,7 @@ public class Network {
                     sum += output[layer - 1][prevNeuron] * weights[layer][neuron][prevNeuron];
                 }
                 output[layer][neuron] = this.rectifier(sum);
-                output_derivative[layer][neuron] = Math.exp(sum) / ( 1 + Math.exp(sum));
+                output_derivative[layer][neuron] = output[layer][neuron];
             }
         }
     }
@@ -329,15 +329,15 @@ public class Network {
     }
 
     private double sigmoid(double x) {// 0 - 1
-        return 1 / (1 + Math.exp(-x));  
+        return this.multiplier / (1 + Math.exp(-x));
     }
 
     public double hyperbolicTangent(double x) { // -1 - 1
-        return Math.tanh(x);
+        return this.multiplier * ((Math.exp(x / this.multiplier) - Math.exp(-x / this.multiplier)) / (Math.exp(x / this.multiplier) + Math.exp(-x / this.multiplier)));
     }
 
     private double unitStep(double x) {// 1 or 0
-    	if (x > this.multiplier / 2) {
+        if (x > this.multiplier / 2) {
             return 1;
         } else if (x < this.multiplier / 2) {
             return 0;
@@ -347,7 +347,13 @@ public class Network {
     }
 
     private double signum(double x) {//values -1 or 1
-        return Math.signum(x);
+        if (x > this.multiplier / 2) {
+            return 1;
+        } else if (x < this.multiplier / 2) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
     private double jumpStep(double x) {
@@ -375,29 +381,15 @@ public class Network {
     }
 
     public static void main(String[] args) {
-    	Network n = new Network(Network.ZERO_TO_ONE, new int[]{2, 3, 1});
-    	TrainSet s = null;//new TrainSet(2,1);
+    	Network n = null;
+    	TrainSet s = null;
     	try {
-			//n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
-			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSaveTest.txt");
+			n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSave");
+			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSave");
     	} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	double multiplier = 180.0;
-    	
-    	TrainSet s2 = new TrainSet(s.INPUT_SIZE, s.OUTPUT_SIZE);
-    	for(int i = 0; i < s.size(); i++) { // copy data 
-    		s2.addData(s.getInput(i), new double[] {s.getOutput(i)[0] / multiplier});
-    	}
-    	
-    	//s.addData(new double[] {15.4560546875, 0.4}, new double[] {10});
-    	
-    	System.out.println(s2.size());
-    	n.train(s, 100000, s2.size());
-
-    	System.out.println(s2.getInput(0)[0] + ", " + s.getInput(0)[1]);
-    	System.out.println(n.calculate(s2.getInput(0))[0]);
-    	
+    	n.train(s, 10000, s.size());
     }
 
     public void saveNetwork(String fileName) throws Exception {
