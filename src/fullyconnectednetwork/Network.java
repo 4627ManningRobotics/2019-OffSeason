@@ -5,6 +5,7 @@ import parser.Node;
 import parser.Parser;
 import parser.ParserTools;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import TrainSet.TrainSet;
@@ -15,7 +16,7 @@ import TrainSet.TrainSet;
  */
 public class Network {
 
-    public static final double LEARNING_RATE = 0.03; // this is a well tested number.
+    public static final double LEARNING_RATE = 0.00001;
 
     public static final int ZERO_OR_ONE = 0;
     public static final int NEGATIVE_ONE_OR_ONE = 1;
@@ -380,16 +381,60 @@ public class Network {
         return Math.log(1 + Math.exp(x));
     }
 
-    public static void main(String[] args) {
-    	Network n = null;
+    public static void main(String[] args) throws FileNotFoundException {
+    	
+    	Network n = new Network(Network.ZERO_TO_ONE, new int[]{2, 3, 1});
     	TrainSet s = null;
-    	try {
-			n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSave");
-			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSave");
-    	} catch (Exception e) {
+		try {
+			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSaveTest.txt");
+			n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	n.train(s, 10000, s.size());
+    	
+    	double multiplier = 180.0;
+    	
+    	TrainSet s2 = new TrainSet(s.INPUT_SIZE, s.OUTPUT_SIZE);
+		
+    	for(int i = 0; i < s.size(); i++) {
+    		s2.addData(s.getInput(i), new double[] {s.getOutput(i)[0] / multiplier});
+    	}
+
+    	
+		System.out.println(s2.extractBatch(s2.size()));
+		
+    	n.train(s2, 10000000, s2.size(), 10000, "C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
+    	
+    	try {
+			n.saveNetwork("C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	for(int i = 0; i < s2.size(); i++) {
+    		System.out.println("num " + i + ": " + n.calculate(s2.getInput(i))[0] * multiplier);
+    	}
+    	
+    	/*
+    	Network net = new Network(Network.ZERO_TO_ONE, new int[] {2, 3, 1});
+    	TrainSet set = new TrainSet(net.INPUT_SIZE, net.OUTPUT_SIZE);
+    	
+    	set.addData(new double[] {0, 0}, new double[] {0});
+    	set.addData(new double[] {0, 0.2}, new double[] {0});
+    	set.addData(new double[] {0, 0.4}, new double[] {0});
+    	set.addData(new double[] {0, 0.6}, new double[] {0});
+    	set.addData(new double[] {0, 0.8}, new double[] {0});
+    	set.addData(new double[] {0, 1.0}, new double[] {0});
+    	set.addData(new double[] {10, .2}, new double[] {.08});
+    	set.addData(new double[] {15, .2}, new double[] {0.13});
+    	set.addData(new double[] {20, .2}, new double[] {0.17});
+    	set.addData(new double[] {10, .4}, new double[] {0.06});
+    	set.addData(new double[] {15, .4}, new double[] {0.12});
+    	set.addData(new double[] {20, .4}, new double[] {0.16});
+
+    	net.train(set, 10000, set.size());
+    	*/
     }
 
     public void saveNetwork(String fileName) throws Exception {

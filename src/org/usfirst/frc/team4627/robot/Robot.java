@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4627.robot.commands.NNTraining;
 import org.usfirst.frc.team4627.robot.commands.PIDTurnToAngle;
 import org.usfirst.frc.team4627.robot.commands.TurnAndAddData;
+import org.usfirst.frc.team4627.robot.commands.TurnToAngle;
 import org.usfirst.frc.team4627.robot.commands.TurnToAngleButBetter;
 import org.usfirst.frc.team4627.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4627.robot.subsystems.Sensors;
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		Robot.oi = new OI();
-		this.m_chooser.addDefault("turn right", new PIDTurnToAngle(45));
+		this.m_chooser.addDefault("turn right", new TurnToAngle(RobotMap.TurningNetwork.calculate(new double[] {45.0, .4})[0], .4));
 		this.m_chooser.addObject("turn left", new PIDTurnToAngle(-45));
 		this.m_chooser.addObject("Net Data", new TurnAndAddData());
 		this.m_chooser.addObject("Net Training", new NNTraining());
