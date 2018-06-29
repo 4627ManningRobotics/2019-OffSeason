@@ -10,13 +10,10 @@ import java.util.Arrays;
 
 import TrainSet.TrainSet;
 
-/**
- * Created by Luecx on 30.05.2017.
- * Modified by Lucas on 3/27/2018.
- */
 public class Network {
 
-    public static final double LEARNING_RATE = 0.000015;
+    public static final double LEARNING_RATE = 0.01;
+    public static final double LEARNING_DEPRECIATION_RATE = 0.0001;
 
     public static final int ZERO_OR_ONE = 0;
     public static final int NEGATIVE_ONE_OR_ONE = 1;
@@ -279,6 +276,24 @@ public class Network {
         updateWeights(eta);
     }
 
+    public void JumpTrain(TrainSet set, int jumps, int jumpRate) {
+        if (set.INPUT_SIZE != INPUT_SIZE || set.OUTPUT_SIZE != OUTPUT_SIZE) {
+            return;
+        }
+        TrainSet batch = set.extractBatch(set.size());
+        Network bestNet = this;
+        for(int i = 0; i < jumps; i++) {
+        	for(int j = 0; j < jumpRate; j++) {
+        		double mse = MSE(batch);
+        		for (int b = 0; b < set.size(); b++) {
+                    this.train(batch.getInput(b), batch.getOutput(b), (LEARNING_RATE - LEARNING_DEPRECIATION_RATE * i) * mse);
+                }
+                System.out.println(mse);
+        	}
+        	if(this.)
+        }
+    }
+    
     public double MSE(double[] input, double[] target) {
         if (input.length != INPUT_SIZE || target.length != OUTPUT_SIZE) {
             return 0;
@@ -386,14 +401,14 @@ public class Network {
     	Network n = new Network(Network.ZERO_TO_ONE, new int[]{2, 3, 1});
     	TrainSet s = null;
 		try {
-			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSaveTest.txt");
-			n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
+			s = new TrainSet("C:\\Users\\robo\\Documents\\turnSetSave.txt");
+			n = Network.loadNetwork("C:\\Users\\robo\\Documents\\turnNetSave.txt");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	double multiplier = 180.0;
+		
+		double multiplier = 180.0;
     	
     	TrainSet s2 = new TrainSet(s.INPUT_SIZE, s.OUTPUT_SIZE);
 		
@@ -403,11 +418,10 @@ public class Network {
 
     	
 		System.out.println(s2.extractBatch(s2.size()));
+			n.train(s2, 10000000, s2.size(), 10000, "C:\\Users\\robo\\Documents\\turnNetSave.txt");
 		
-    	n.train(s2, 10000000, s2.size(), 10000, "C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
-    	
     	try {
-			n.saveNetwork("C:\\Users\\robo\\Documents\\turnNetSaveTest.txt");
+			n.saveNetwork("C:\\Users\\robo\\Documents\\turnNetSave.txt");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

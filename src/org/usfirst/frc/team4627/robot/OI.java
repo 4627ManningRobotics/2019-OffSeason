@@ -50,7 +50,7 @@ public class OI {
 	}
 
 	public OI () {
-		
+		this.oButtonRightStick.whenPressed(new WristControls());
 	}
 
 

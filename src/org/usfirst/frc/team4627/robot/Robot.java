@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4627.robot.commands.ContinuousPrint;
 import org.usfirst.frc.team4627.robot.commands.NNTraining;
 import org.usfirst.frc.team4627.robot.commands.PIDTurnToAngle;
 import org.usfirst.frc.team4627.robot.commands.TurnAndAddData;
@@ -20,6 +21,7 @@ import org.usfirst.frc.team4627.robot.commands.TurnToAngle;
 import org.usfirst.frc.team4627.robot.commands.TurnToAngleButBetter;
 import org.usfirst.frc.team4627.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4627.robot.subsystems.Sensors;
+import org.usfirst.frc.team4627.robot.subsystems.Wrist;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +32,7 @@ import org.usfirst.frc.team4627.robot.subsystems.Sensors;
  */
 public class Robot extends TimedRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final Wrist wrist = new Wrist(RobotMap.WRIST_P, RobotMap.WRIST_I, RobotMap.WRIST_D);
 	public static final Sensors sensors = new Sensors();
 	public static OI oi;
 
@@ -43,11 +46,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		Robot.oi = new OI();
-		this.m_chooser.addDefault("turn right", new TurnToAngle(RobotMap.TurningNetwork.calculate(new double[] {45.0, .4})[0] * 180, .4));
-		this.m_chooser.addObject("turn left", new TurnToAngle(-RobotMap.TurningNetwork.calculate(new double[] {45.0, .4})[0] * 180, .4));
+		this.m_chooser.addDefault("turn right", new TurnToAngle(RobotMap.TurningNetwork.calculate(new double[] {45.0, .7, 45.0 * .7})[0] * 180, .7));
+		this.m_chooser.addObject("turn left", new TurnToAngle(-RobotMap.TurningNetwork.calculate(new double[] {45.0, .7, 45.0 * .7})[0] * 180, .7));
 		this.m_chooser.addObject("Net Data", new TurnAndAddData());
 		this.m_chooser.addObject("Net Training", new NNTraining());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		Robot.wrist.enable();
 	}
 
 	/**
@@ -121,9 +126,18 @@ public class Robot extends TimedRobot {
 	}
 
 	/**
+	 * This function is called at the start of test mode.
+	 */
+	@Override
+	public void testInit() {
+	}
+	
+	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
+		Scheduler.getInstance().run();
+		System.out.println("Wrist: " + Robot.wrist.calculateAngle());
 	}
 }

@@ -36,16 +36,17 @@ public class TrainSet {
     	sc.useDelimiter("\\]*,\\s*\\[*");
     	this.INPUT_SIZE = sc.nextInt();
     	this.OUTPUT_SIZE = sc.nextInt();
+    	
         while(sc.hasNext()) {
-    	double[] in = new double[this.INPUT_SIZE];
-    	double[] out = new double[this.OUTPUT_SIZE];
-    	for(int i = 0; i < this.INPUT_SIZE; i++) {
-    		in[i] = sc.nextDouble();
-    	}
-    	for(int i = 0; i < this.OUTPUT_SIZE; i++) {
-    		out[i] = sc.nextDouble();
-    	}
-    	this.data.add(new double[][]{in, out});
+        	double[] in = new double[this.INPUT_SIZE];
+        	double[] out = new double[this.OUTPUT_SIZE];
+        	for(int i = 0; i < this.INPUT_SIZE; i++) {
+        		in[i] = sc.nextDouble();
+        	}
+        	for(int i = 0; i < this.OUTPUT_SIZE; i++) {
+        		out[i] = sc.nextDouble();
+        	}
+        	this.data.add(new double[][]{in, out});
         }
         sc.close();
      }
@@ -56,16 +57,16 @@ public class TrainSet {
             pw.println(this.INPUT_SIZE + ", " + this.OUTPUT_SIZE + ",");
             int j = 0;
             for(int g = 0; g < this.data.size(); g++){
-            for(double[] i: this.data.get(g)){
-                if(j%2==0){
-                    pw.print(Arrays.toString(i) + ", ");
-                }else{
-                    pw.println(Arrays.toString(i) + ",");
-                }
-                pw.close();
-                j++;
+            	for(double[] i: this.data.get(g)){
+            		if(j % 2 == 0){
+            			pw.print(Arrays.toString(i) + ", ");
+            		}else{
+            			pw.println(Arrays.toString(i) + ",");
+            		}
+            		j++;
+            	}
             }
-            }
+            pw.close();
             
         } catch (IOException ex) {
             Logger.getLogger(TrainSet.class.getName()).log(Level.SEVERE, null, ex);

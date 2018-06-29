@@ -30,28 +30,10 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		// configure the time it takes for the motors to reach max speed
-		this.leftMotor1.configOpenloopRamp(0, 0); 
-		this.leftMotor2.configOpenloopRamp(0, 0); 
-		this.rightMotor1.configOpenloopRamp(0, 0); 
-		this.rightMotor2.configOpenloopRamp(0, 0); 
-		
-		//current limiting
-		/*
-		this.leftMotor1.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.leftMotor2.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor1.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor2.configPeakCurrentLimit(RobotMap.DRIVE_CURRENT_LIMIT, RobotMap.DRIVE_CURRENT_TIMEOUT);
-
-		this.leftMotor1.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.leftMotor2.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor1.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		this.rightMotor2.configPeakCurrentDuration(0, RobotMap.DRIVE_CURRENT_TIMEOUT);
-		
-		this.leftMotor1.enableCurrentLimit(true);
-		this.leftMotor2.enableCurrentLimit(true);
-		this.rightMotor1.enableCurrentLimit(true);
-		this.rightMotor2.enableCurrentLimit(true);
-		*/
+		this.leftMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
+		this.leftMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
+		this.rightMotor1.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
+		this.rightMotor2.configOpenloopRamp(RobotMap.RAMP_RATE, 0); 
 	}
 	
 	

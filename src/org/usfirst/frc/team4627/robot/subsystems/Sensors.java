@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 public class Sensors extends Subsystem {
 
 	public static final AHRS gyro = new AHRS(SerialPort.Port.kUSB);
-
+	
     public void initDefaultCommand() {
         super.setDefaultCommand(new ContinuousPrint());
     }

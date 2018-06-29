@@ -52,12 +52,19 @@ public class RobotMap {
 	public static final int LEFT_MOTOR_2 = 6;
 	public static final int RIGHT_MOTOR_1 = 3;
 	public static final int RIGHT_MOTOR_2 = 4;
+	public static final int WRIST_MOTOR = 0;
 	
 	//rates and scalars
 	public static final double RAMP_RATE = 0.4;
 	public static final double ANGLE_SPEED_SCALAR = 0.01;
 	public static final double DRIVER_MAX_SPEED = 1.0;
+	public static final double WRIST_MAX_SPEED = 1.0;
+	public static final double MANUAL_WRIST_SCALING = 5;
 	public static double TURNING_RATE = 0.7;
+	
+	//positions
+	public static final double WRIST_DOWN_STOW = 35; // degree positions
+	public static final double WRIST_UP_STOW = 287;
 
 	//offsets
 	public static final double TURN_BASE_RATE = 0.1;
@@ -67,16 +74,20 @@ public class RobotMap {
 	
 	//constrainors
 	public static final double CONTROLLER_SAFEZONE = 0.1;
-	public static final double GYRO_GAY = 3; //this is Sara's contribution
+	public static final double GYRO_GAY = 0; //this is Sara's contribution
 	public static final int DRIVE_CURRENT_LIMIT = 27; //amps
 	public static final int DRIVE_CURRENT_TIMEOUT = 10; //ms
+	public static final double WRIST_TOLERANCE_LEVEL = 3;
 	
 	//PID values
 	public static final double TURN_P = 0.01;
 	public static final double TURN_I = 0.0002;
 	public static final double TURN_D = 0;
+	public static final double WRIST_P = 0.0075;
+	public static final double WRIST_I = 0.00007;
+	public static final double WRIST_D = 0.000012;
 	
 	//Neural Networks
-	public static final NN TurningNetwork = new NN("/home/lvuser/Saves/turnNetSaveTest.txt", "/home/lvuser/Saves/turnSetSaveTest.txt");
+	public static final NN TurningNetwork = new NN("/home/lvuser/Saves/turnNetSave.txt", "/home/lvuser/Saves/turnSetSave.txt");
 	
 }

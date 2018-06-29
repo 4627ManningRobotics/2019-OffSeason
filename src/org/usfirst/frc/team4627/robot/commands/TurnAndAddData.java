@@ -38,15 +38,15 @@ public class TurnAndAddData extends Command {
     	
     	this.theNet = new NN(Network.ZERO_TO_ONE, 180.0, new int[] {2,3,1});
 		try {
-			this.theNet.saveNet("/home/lvuser/Saves/turnNetSaveTest.txt"); // create the files
+			this.theNet.saveNet("/home/lvuser/Saves/turnNetSave.txt"); // create the files
 			System.out.println(this.theNet.set.size());
-			this.theNet.saveSet("/home/lvuser/Saves/turnSetSaveTest.txt");
+			this.theNet.set.addData(new double[] {0.0, 0.0}, new double[] {0.0});
+			this.theNet.saveSet("/home/lvuser/Saves/turnSetSave.txt");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.err.println("you done goofed: " + e);
 		}//create a network save for later
 
-		this.theNet.set.addData(new double[] {0.0, 0.0}, new double[] {0.0});
 		this.c = new TurnToAngle(this.degree * 5, this.speed / 5);
 		this.c.start();
     }
@@ -77,7 +77,6 @@ public class TurnAndAddData extends Command {
     		}
     	}
     	
-    	
     	if(this.finishedTime + this.timeInterval <= System.currentTimeMillis() && this.c.isCompleted() && !this.hasJustFinished) {
 			this.theNet.addData(new double[] {Sensors.gyro.getAngle(), this.speed / 5}, new double[] {this.degree * 5});
     		this.c = new TurnToAngle(this.degree * 5, this.speed / 5);
@@ -86,36 +85,6 @@ public class TurnAndAddData extends Command {
     	
     	this.lastState = this.c.isCompleted();
     	
-    	/*
-    	Command c;
-    	int timeInterval = 1000; // time interval in milliseconds, one seconds
-    	double[][] in = new double[180][2]; // 36-5 degree intervals * 5 speeds
-    	double[] out = new double[180];
-    	
-    	for(int speed = 1; speed <= 5; speed++) {
-    		for(int degree = 1; degree <= 36; degree++) {
-    			
-    			int index = (speed - 1) * 36 + (degree - 1);
-    			
-    			c = (Command) new TurnToAngle(degree * 5, speed / 5, 3); // start turning
-    			c.start();
-    			System.out.println("Turning...");
-    			while(c.isRunning()) {
-    				
-    			}
-    			
-    			long time = System.currentTimeMillis();
-    			while(time + timeInterval > System.currentTimeMillis()) {
-    				//wait
-    			}
-    			System.out.println("Done!");
-    			in[index] = new double[] {Robot.sensors.getGyroAngle(), speed / 5};
-    			out[index] = degree * 5;
-    			NN.addTrainDataToFile(in[index], new double[] {out[index]}, "/home/lvuser/Saves/turnSetSaveTest.txt");
-    		}
-    	}
-    	this.isFin = true;
-    	*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -125,7 +94,7 @@ public class TurnAndAddData extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	this.theNet.saveSet("/home/lvuser/Saves/turnSetSaveTest.txt");
+    	this.theNet.saveSet("/home/lvuser/Saves/turnSetSave.txt");
     	Robot.driveTrain.setLeftMotor(0);
     	Robot.driveTrain.setRightMotor(0);
     }
